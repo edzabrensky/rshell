@@ -4,5 +4,5 @@ class Connector {
 	public:
 	Connector();
 	bool success;
-	virtual void runCommand(string cmd);	
+	virtual int runCommand(string cmd);	
 };

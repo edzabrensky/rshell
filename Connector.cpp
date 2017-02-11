@@ -4,7 +4,7 @@ Connector::Connector() {
 	
 }
 
-void Connector::runCommand(string cmd) {
-
+int Connector::runCommand(string cmd) {
+	return 1;
 }
 

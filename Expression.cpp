@@ -24,7 +24,9 @@ Expression::Expression(const string &e) {
 }
 
 void Expression::runExpression() {
-
-
+	int i = 0;
+	while(i < static_cast<int>(v.size())) {
+		i += v.at(i)->getConnector()->runCommand(v.at(i)->getCommand());
+	}
 }
 

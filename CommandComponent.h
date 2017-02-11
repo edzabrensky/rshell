@@ -7,6 +7,7 @@ class CommandComponent {
 	public:
 	CommandComponent();
 	CommandComponent(string command, Connector *p);
-	
+	Connector * getConnector();
+	string getCommand();	
 
 };

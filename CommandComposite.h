@@ -1,7 +1,7 @@
 #include "CommandComponent.h"
 #include <vector>
 class CommandComposite : public CommandComponent {
-	private:
+	protected:
 	vector<CommandComponent *> v;
 	public:
 	CommandComposite();
