@@ -7,7 +7,7 @@ int AND::runCommand(string cmd)
   {
     return 1;
   }
-  if (success)
+  if (!success)
   {
     return 2;
   }
