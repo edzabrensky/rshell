@@ -1,5 +1,10 @@
 #include "AND.h"
 
+bool isNone()
+{
+ return false; 
+}
+
 int AND::runCommand(string cmd)
 {
   Connector::runCommand(cmd);
