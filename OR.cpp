@@ -1,6 +1,6 @@
 #include "OR.h"
 
-bool isNone()
+bool OR::isNone()
 {
  return false; 
 }
