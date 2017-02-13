@@ -8,6 +8,7 @@ using namespace std;
 class OR : public Connector {
   public:
   int runCommand(string cmd);
+  bool isNone();
 };
 
 #endif
