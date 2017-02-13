@@ -6,6 +6,10 @@ bool Connector::isNone() {
 	return false;
 }
 int Connector::runCommand(CommandComponent *cmd) {
+	if(cmd->getCommand() == "exit") {
+		exit(0);
+	}
+	else {
 	char * args[500] = {NULL};
 	args[0] = (char*)cmd->getCommand().c_str();
 	for(unsigned i = 0; i < cmd->parameters.size(); ++i) {
@@ -33,6 +37,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 			success = true;
 		}
 			
+	}
 	}			
 	return 1;
 }
