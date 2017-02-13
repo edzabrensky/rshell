@@ -3,11 +3,11 @@
 int OR::runCommand(string cmd)
 {
   Connector::runCommand(cmd);
-  if (Connector::success)
+  if (success)
   {
     return 2;
   }
-  if (!Connector::success)
+  if (!success)
   {
     return 1;
   }
