@@ -1,6 +1,6 @@
 #include "None.h"
 
-bool isNone()
+bool None::isNone()
 {
  return true;
 }
