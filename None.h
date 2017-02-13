@@ -1,6 +1,7 @@
 #ifndef NONE_H
 #define NONE_H
 #include <string>
+#include "Connector.h"
 
 using namespace std;
 
