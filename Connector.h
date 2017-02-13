@@ -13,7 +13,8 @@ class Connector {
 	public:
 	Connector();
 	bool success;
-	virtual int runCommand(string cmd);	
+	virtual int runCommand(string cmd);
+	virtual bool isNone();
 };
 
 #endif
