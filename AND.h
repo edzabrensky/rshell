@@ -1,1 +1,4 @@
-
+class AND : public Connector {
+  
+  
+};
