@@ -6,20 +6,19 @@ bool Connector::isNone() {
 	return false;
 }
 int Connector::runCommand(CommandComponent *cmd) {
+	char * args[500] = {NULL};
+	args[0] = (char*)cmd->getCommand().c_str();
+	for(unsigned i = 0; i < cmd->parameters.size(); ++i) {
+		args[i +1] = (char*)cmd->parameters.at(i).c_str();
+	}
 	//syscall on cmd; fork, execvp, waitpid
 	pid_t pid = fork();
-	
-	if (pid == -1) //error
-	{
-		perror ("fork");
-		this->success = false;
-	}
 		
 	if (pid == 0) //child
 	{
-		this->success = true;
-		if ( execvp(REPLACE WITH PARAMETERS) == -1 ) //ADD PARAMETERS FOR EXECVP
+		if ( execvp(args[0], args) == -1 ) //ADD PARAMETERS FOR EXECVP
 		{
+			this->success = false;
 			perror ("exec");
 		}
 	}
@@ -30,9 +29,11 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			perror ("wait");
 		}
+		else {
+			success = true;
+		}
 			
-	}
-			
+	}			
 	return 1;
 }
 

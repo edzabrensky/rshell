@@ -7,45 +7,7 @@ Expression::Expression(const string &e) {
 		s = e.substr(0, e.find("#"));
 		//cout << s << endl;
 	}
-	char * str = new char[s.size() +1];
-	strcpy(str, s.c_str());
-        char * pch;
-        pch = strtok (str," \n");
-	string k;
-	int i = 0;
-        while (pch != NULL)
-        {
-                k = pch;
-                cout << k << endl;
-		if(i == 0) {
-			v.push_back(new CommandComponent(k, new None()));
-			++i;
-		}
-		else {
-			if(strcmp("&&",pch) == 0) {
-				v.at(i - 1)->setConnector(new AND());
-			}
-			else if(strcmp(";", pch) == 0) {
-				v.at(i - 1)->setConnector(new Semicolon());
-			}		
-			else if(strcmp("||", pch) == 0) {
-				v.at(i - 1)->setConnector(new OR());
-			}
-			else {
-				if(v.at(i - 1)->getConnector()->isNone()) {
-					v.at(i - 1)->parameters.push_back(k);	
-				}
-				else {
-					v.push_back(new CommandComponent(k, new None()));
-				}
-			}
-		}	
-                pch = strtok (NULL, " \n");
-        }
-	delete[] str;
-	
-	
-
+	parse(s);
 
 	/*string p = e;
 	string token;
@@ -63,10 +25,89 @@ Expression::Expression(const string &e) {
 	}*/		
 }
 
+void Expression::parse(const string &s) {
+	char * str = new char[s.size() +1];
+        strcpy(str, s.c_str());
+	char * pch;
+        pch = strtok (str," \n");
+        string k;
+	while (pch != NULL)
+        {
+                k = pch;
+                //if(v.size() == 0) {
+                //                        v.push_back(new CommandComponent(k, new None()));
+                //}
+		//else {
+               	        if(strcmp("&&",pch) == 0 && v.size() > 0) {
+                                v.back()->setConnector(new AND());
+                        }
+                        else if(strcmp(";", pch) == 0 && v.size() > 0) {
+                                v.back()->setConnector(new Semicolon());
+                        }
+                        else if(strcmp("||", pch) == 0 && v.size() > 0) {
+                                v.back()->setConnector(new OR());
+                        }
+                        else if(k.find(";") != string::npos && v.size() > 0) {
+                                parse(k.substr(0, k.find(";")));
+				v.back()->setConnector(new Semicolon());
+				if(k.find(";") + 1 > k.size() - 1) {//if ; isnt the last part of the string
+                                	parse(k.substr(k.find(";") + 1, k.size() - 1 - k.find(";")));       
+                                }
+                                
+                        }
+                        else if(k.find("||") != string::npos && v.size() > 0) {
+                                parse(k.substr(0, k.find("||")));
+                                v.back()->setConnector(new OR());
+                                if(k.find("||") + 2 > k.size() - 1) {//if ; isnt the last part of the string
+                                        parse(k.substr(k.find("||") + 2, k.size() - 1 - (k.find("||") + 1)));
+                                       // cout <<k.substr(k.find("||") + 2, k.size() - 1 - k.find("||") + 2) << endl;
+                                }
+
+                        }
+			else if(k.find("&&") != string::npos && v.size() > 0) {
+                                parse(k.substr(0, k.find("&&")));
+                                v.back()->setConnector(new AND());
+                                if(k.find("&&") + 2 > k.size() - 1) {//if ; isnt the last part of the string
+                                        parse(k.substr(k.find("&&") + 2, k.size() - 1 - (k.find("&&") + 1)));
+                                }
+
+                        }
+
+			else {
+				if(v.size() == 0) {
+					v.push_back(new CommandComponent(k, new None()));
+				}
+				else {
+                                	if(v.back()->getConnector()->isNone()) {
+                                        	v.back()->parameters.push_back(k);
+                                	}
+                                	else {
+                                        	v.push_back(new CommandComponent(k, new None()));
+                                	}
+				}
+                        }
+                //}
+                pch = strtok (NULL, " \n");
+	
+	}
+	delete[] str;
+}
+
 void Expression::runExpression() {
 	int i = 0;
 	while(i < static_cast<int>(v.size())) {
+		//cout << v.size() << endl;
+
 		i += v.at(i)->getConnector()->runCommand(v.at(i));
+		//cout << i << endl;
 	}
 }
+
+
+
+
+
+
+
+
 

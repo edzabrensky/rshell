@@ -12,10 +12,11 @@
 using namespace std;
 
 class Expression : public CommandComposite {
+	private:
+	void parse(const string &s);
 	public:
 	Expression(const string &e);
 	void runExpression();
-	
 
 };
 
