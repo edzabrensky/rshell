@@ -2,10 +2,12 @@
 Connector::Connector() {
 	
 }
-
+bool Connector::isNone() {
+	return false;
+}
 int Connector::runCommand(string cmd) {
 	//syscall on cmd; fork, execvp, waitpid
-	pid_t pid = fork();
+/*	pid_t pid = fork();
 	
 	if (pid == -1) //error
 	{
@@ -31,7 +33,7 @@ int Connector::runCommand(string cmd) {
 			
 	}
 	
-	
+*/	
 	return 1;
 }
 
