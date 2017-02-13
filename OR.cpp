@@ -1,5 +1,10 @@
 #include "OR.h"
 
+bool isNone()
+{
+ return false; 
+}
+
 int OR::runCommand(string cmd)
 {
   Connector::runCommand(cmd);
