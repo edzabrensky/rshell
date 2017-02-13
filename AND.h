@@ -1,6 +1,7 @@
 #ifndef AND_H
 #define AND_H
 #include <string>
+#include "Connector.h"
 
 using namespace std;
 
