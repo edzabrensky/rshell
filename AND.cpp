@@ -1,6 +1,6 @@
 #include "AND.h"
 
-bool isNone()
+bool AND::isNone()
 {
  return false; 
 }
