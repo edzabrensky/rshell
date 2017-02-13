@@ -1,6 +1,6 @@
 #include "Semicolon.h"
 
-bool isNone()
+bool Semicolon::isNone()
 {
  return false; 
 }
