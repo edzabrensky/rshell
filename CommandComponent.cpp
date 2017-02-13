@@ -15,7 +15,9 @@ string CommandComponent::getCommand() {
 
 }
 
-
+void CommandComponent::setConnector(Connector * x) {
+	p = x;
+}
 
 
 

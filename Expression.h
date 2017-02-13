@@ -1,6 +1,10 @@
 #ifndef __EXPRESSION_H__
 #define __EXPRESSION_H__
 #include "CommandComposite.h"
+#include "None.h"
+#include "OR.h"
+#include "AND.h"
+#include "Semicolon.h"
 #include <iostream>
 #include <string>
 #include <stdio.h>

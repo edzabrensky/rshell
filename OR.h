@@ -7,7 +7,7 @@ using namespace std;
 
 class OR : public Connector {
   public:
-  int runCommand(string cmd);
+  int runCommand(CommandComponent * cmd);
   bool isNone();
 };
 

@@ -5,7 +5,7 @@ bool None::isNone()
  return true;
 }
 
-int None::runCommand(string cmd)
+int None::runCommand(CommandComponent * cmd)
 {
  Connector::runCommand(cmd);
   return 1;

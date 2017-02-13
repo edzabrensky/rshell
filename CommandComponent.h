@@ -3,18 +3,20 @@
 
 #include "Connector.h"
 #include <vector>
-
+#include <string>
+using namespace std;
+class Connector;
 class CommandComponent {
 	protected:
 	Connector * p;
 	string command;
-	vector<string> parameters;
 	public:
+	vector<string> parameters;
 	CommandComponent();
 	CommandComponent(string command, Connector *p);
 	Connector * getConnector();
 	string getCommand();	
-
+	void setConnector(Connector *);
 };
 
 #endif

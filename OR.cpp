@@ -5,7 +5,7 @@ bool OR::isNone()
  return false; 
 }
 
-int OR::runCommand(string cmd)
+int OR::runCommand(CommandComponent * cmd)
 {
   Connector::runCommand(cmd);
   if (success)

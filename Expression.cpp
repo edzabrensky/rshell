@@ -1,12 +1,11 @@
 #include "Expression.h"
-#include "None.h"
 //assumes the first string is the command even if it is a connector
 //e.g. if the user types "&& ls -a" it will assume && is a command and the arguments are ls and -a
 Expression::Expression(const string &e) {
 	string s = e;
 	if(s.find("#") != string::npos)  {
 		s = e.substr(0, e.find("#"));
-		cout << s << endl;
+		//cout << s << endl;
 	}
 	char * str = new char[s.size() +1];
 	strcpy(str, s.c_str());
@@ -21,8 +20,26 @@ Expression::Expression(const string &e) {
 		if(i == 0) {
 			v.push_back(new CommandComponent(k, new None()));
 			++i;
+		}
+		else {
+			if(strcmp("&&",pch) == 0) {
+				v.at(i - 1)->setConnector(new AND());
+			}
+			else if(strcmp(";", pch) == 0) {
+				v.at(i - 1)->setConnector(new Semicolon());
+			}		
+			else if(strcmp("||", pch) == 0) {
+				v.at(i - 1)->setConnector(new OR());
+			}
+			else {
+				if(v.at(i - 1)->getConnector()->isNone()) {
+					v.at(i - 1)->parameters.push_back(k);	
+				}
+				else {
+					v.push_back(new CommandComponent(k, new None()));
+				}
+			}
 		}	
-                
                 pch = strtok (NULL, " \n");
         }
 	delete[] str;
@@ -49,7 +66,7 @@ Expression::Expression(const string &e) {
 void Expression::runExpression() {
 	int i = 0;
 	while(i < static_cast<int>(v.size())) {
-		i += v.at(i)->getConnector()->runCommand(v.at(i)->getCommand());
+		i += v.at(i)->getConnector()->runCommand(v.at(i));
 	}
 }
 
