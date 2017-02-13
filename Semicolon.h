@@ -1,6 +1,7 @@
 #ifndef SEMICOLON_H
 #define SEMICOLON_H
 #include <string>
+#include "Connector.h"
 
 using namespace std;
 
