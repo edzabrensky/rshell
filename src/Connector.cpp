@@ -20,7 +20,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		
 	if (pid == 0) //child
 	{
-		if ( execvp(args[0], args) == -1 )
+		if ( execvp(args[0], args) == -1 ) //ADD PARAMETERS FOR EXECVP
 		{
 			this->success = false;
 			perror ("exec");
@@ -38,7 +38,6 @@ int Connector::runCommand(CommandComponent *cmd) {
 		}
 			
 	}
-		
 	}			
 	return 1;
 }
