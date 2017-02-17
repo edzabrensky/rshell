@@ -35,7 +35,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 	if (pid > 0) //parent
 	{
 		int status;
-		if (wait(0) == -1)
+		if (wait(&status) == -1)
 		{
 			perror ("wait");
 		}
