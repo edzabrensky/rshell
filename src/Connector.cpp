@@ -6,8 +6,10 @@ bool Connector::isNone() {
 	return false;
 }
 int Connector::runCommand(CommandComponent *cmd) {
-	if(cmd->getCommand() == "exit") {
+	if(cmd->getCommand().compare("exit") == 0) {
 		exit(0);
+		exit(0);
+		//cout << "xD" << endl;
 	}
 	else {
 	char * args[500] = {NULL};
