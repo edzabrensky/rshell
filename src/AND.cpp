@@ -12,9 +12,5 @@ int AND::runCommand(CommandComponent * cmd)
   {
     return 1;
   }
-  if (!success)
-  {
-    return 2;
-  }
   return 2;
 }

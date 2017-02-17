@@ -12,9 +12,5 @@ int OR::runCommand(CommandComponent * cmd)
   {
     return 2;
   }
-  if (!success)
-  {
-    return 1;
-  }
   return 1;
 }
