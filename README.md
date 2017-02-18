@@ -20,10 +20,10 @@ ls | echo | mkdir | touch | exit
 <p>exit - exit the command shell
 
 <p>Some uses: </p>
-    <code><p>ls
-    <p>echo hello
-    <p>touch newfile
-    <p>exit</code>
+    ls
+    echo hello
+    touch newfile
+    exit
 
 ----
 <h1>Bugs
