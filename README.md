@@ -42,6 +42,11 @@ rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 <p>a command followed by <code>;</code> always executes </p>
 <code>ls -a; echo hello; mkdir test || echo world; ls && touch newfile || exit</code>
     
+----------    
+<h2>Test Files
+----------
+To use test files: go into the <code>root</code> directory and type <code>./tests/(NameOfTestFile)</code>
+
 ----
 <h2>Bugs
 ----
