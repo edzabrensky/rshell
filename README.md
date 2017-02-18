@@ -37,8 +37,8 @@ rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 <p>where:
 <p>a command followed by <code>&&</code> only executes if the first command succeeds
 <p>a command followed by <code>||</code> only executes if the first command fails
-<p>a command followed by <code>;</code> always executes
-    ls -a; echo hello; mkdir test || echo world; ls && touch newfile || exit
+<p>a command followed by <code>;</code> always executes </p>
+<code>ls -a; echo hello; mkdir test || echo world; ls && touch newfile || exit</code>
     
 ----
 <h2>Bugs
