@@ -8,9 +8,11 @@ This is a command shell written in c++. It can execute commands located in /bin/
 -----------------
 <h2> Installation
 -----------------
-1. Clone the repo
-2. Compile with <code>make</code> inside the <code>src</code> directory
-3. Use as a command shell, examples given in the section below
+1. <code>git clone</code>
+2. <code>cd rshell</code>
+3. <code>git checkout hw2</code>
+4. <code>make</code>
+5. <code>bin/rshell</code>
 
 --------------
 <h2>Uses of rShell
