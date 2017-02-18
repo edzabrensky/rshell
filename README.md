@@ -15,7 +15,7 @@ This is a command shell written in c++. It can execute commands located in /bin/
 --------------
 <h2>Uses of rShell
 --------------
-Rshell behaves exactly like a [command shell](http://pubs.opengroup.org/onlinepubs/007904875/utilities/xcu_chap02.html). 
+rShell behaves exactly like a [command shell](http://pubs.opengroup.org/onlinepubs/007904875/utilities/xcu_chap02.html). 
 
 Example:
 [ls](https://en.wikipedia.org/wiki/Ls) | [echo](https://en.wikipedia.org/wiki/Echo_(command)) | [mkdir](https://en.wikipedia.org/wiki/Mkdir) | [touch](https://en.wikipedia.org/wiki/Touch_(Unix)) | [exit](http://tldp.org/LDP/abs/html/exit-status.html)
