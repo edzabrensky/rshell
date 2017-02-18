@@ -1,4 +1,4 @@
-# rshell
+# rShell
 
 ------------------
 <h1>About this project
@@ -13,7 +13,7 @@ This is a command shell written in c++. It can execute commands located in /bin/
 3. Use as a command shell, examples given in the section below
 
 --------------
-<h2>Uses of rshell
+<h2>Uses of rShell
 --------------
 Rshell behaves exactly like a command shell. 
 
@@ -31,7 +31,7 @@ ls | echo | mkdir | touch | exit
     echo hello
     touch newfile
     exit
-
+    
 ----
 <h2>Bugs
 ----
