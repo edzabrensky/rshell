@@ -57,3 +57,4 @@ rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 ----
 * After running tests, there are occasions where <code>exit</code> has to be typed twice to successfully end the program
 * Invalid commands occasionally have the wrong error message associated with them; in particular, the error message's source will be from the terminal instead of from the program
+* When testing bash files, the output lacks a preceding newline so the output ends up being on the same line where it is invoked. However, the output is correct. 
