@@ -10,3 +10,4 @@ echo hello #this part should not output
 echo 1 #none of these
 echo 2 #should print
 echo 3 #to console
+exit
