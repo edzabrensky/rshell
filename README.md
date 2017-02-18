@@ -19,8 +19,7 @@ ls | echo | mkdir | touch | exit
 <p>touch - create a file in the current directory
 <p>exit - exit the command shell
 
-<p>Some uses:
-<br>
+<p>Some uses: </p>
     <code><p>ls
     <p>echo hello
     <p>touch newfile
