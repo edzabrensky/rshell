@@ -1,4 +1,4 @@
-
+#!/bin/sh
 ls -l
 echo hello
 mkdir test1
