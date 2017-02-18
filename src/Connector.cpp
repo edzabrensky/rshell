@@ -37,20 +37,6 @@ int Connector::runCommand(CommandComponent *cmd) {
 	
 	else if (pid > 0) //parent
 	{
-		/*int status;
-		if (wait(&status) == -1)
-		{
-			perror ("wait");
-		}
-		else {
-			pid_t result = waitpid(pid, &status, WNOHANG); //need to do if status == 1 then success = false if status == 0 then return 1
-			if(WIFEXITED(status) == 0) {
-				success = false;
-			}
-			else {
-				success = true;
-			}
-		}*/
 		int status;
 		do {
 		pid_t endID = (waitpid(pid, &status, WNOHANG|WUNTRACED));
@@ -61,11 +47,6 @@ int Connector::runCommand(CommandComponent *cmd) {
 			perror("waitpid error");
 			//exit(EXIT_FAILURE);
 		}
-		//else if(endID == 0) {
-		//	perror("wait");
-			//perror("wait");//child still running
-		//}
-		//else if(endID == pid) {//child ended
 			if(WIFEXITED(status)) {
 				if(status == 0) {
 					success = true;
@@ -80,8 +61,6 @@ int Connector::runCommand(CommandComponent *cmd) {
 			else if(WIFSTOPPED(status)) {
 				success = false;
 			}
-			//exit(EXIT_SUCCESS);
-		//}
 		}while(!WIFEXITED(status) && !WIFSIGNALED(status));	
 	}
 	}			
