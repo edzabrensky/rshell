@@ -20,11 +20,11 @@ Rshell behaves exactly like a command shell.
 Example:
 ls | echo | mkdir | touch | exit
 
-<p>ls - list contents of directory
-<p>echo - display a line of text
-<p>mkdir - create an empty folder in the current directory
-<p>touch - create a file in the current directory
-<p>exit - exit the command shell
+<p><code>ls</code> - list contents of directory
+<p><code>echo</code> - display a line of text
+<p><code>mkdir</code> - create an empty folder in the current directory
+<p><code>touch</code> - create a file in the current directory
+<p><code>exit</code> - exit the command shell
 
 <p>Some uses: </p>
     ls
