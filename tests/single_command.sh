@@ -1,9 +1,11 @@
 #!/bin/sh
 #tests single commands
-ls -a
+ls -l
 echo hello
 mkdir test1
-ls -l
+ls -a
+rm -r test1
+ls -a
 echo this
 echo is
 echo a
