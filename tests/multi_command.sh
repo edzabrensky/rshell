@@ -1,5 +1,6 @@
 #!/bin/sh
 #tests commands with ;, &&, or
+./bin/rshell << 'EOF'
 ls -a; echo hello && mkdir test && rm -r test; ls
 lol || git status; xD && exit; ls pizza
 ls&&mkdir test; ls -a &&rm -r test ||lol; ls
@@ -14,3 +15,5 @@ helloxD123 || echo world
 echo world || helloxD123
 echo test && echo world; ls -l
 echo world && echo test
+exit
+EOF

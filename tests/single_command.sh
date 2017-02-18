@@ -1,5 +1,5 @@
 #!/bin/sh
-ls -l
+./bin/rshell <<'EOF'
 echo hello
 mkdir test1
 ls -a
@@ -21,4 +21,5 @@ echo hello xD 123
 ;
 &&
 ||
-#exit
+exit
+EOF

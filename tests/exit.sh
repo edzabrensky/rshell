@@ -1,5 +1,6 @@
 #!/bin/sh
 #tests exit and commands with exit
+./bin/rshell << 'EOF'
 ls -a; echo hello
 echo world; invalidbashcommand && exit #shouldn't exit since invalidbashcommand isn't a valid command
 echo 123 #exit
@@ -14,3 +15,4 @@ echo 1 #none of these
 echo 2 #should print
 echo 3 #to console
 exit
+EOF
