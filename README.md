@@ -8,7 +8,7 @@ This is a command shell written in c++. It can execute commands located in /bin/
 -----------------
 <h2> Installation
 -----------------
-1. <code>git clone</code>
+1. <code>git clone https://github.com/yourusername/rshell.git</code>
 2. <code>cd rshell</code>
 3. <code>git checkout hw2</code>
 4. <code>make</code>
