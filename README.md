@@ -45,7 +45,12 @@ rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 ----------    
 <h2>Test Files
 ----------
-To use test files: go into the <code>root</code> directory and type <code>./tests/(NameOfTestFile)</code>
+<p>To use test files: go into the <code>root</code> directory and type <code>./tests/(NameOfTestFile)</code>
+<p>Available test files:
+<code>commented_command.sh</code>
+<code>exit.sh</code>
+<code>multi_command.sh</code>
+<code>single_command.sh</code>
 
 ----
 <h2>Bugs
