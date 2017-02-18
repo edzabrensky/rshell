@@ -26,13 +26,13 @@ ls | echo | mkdir | touch | exit
 <p><code>touch</code> - create a file in the current directory
 <p><code>exit</code> - exit the command shell
 
-<p>**General single command uses**</p>
+<p><b>General single command uses</b></p>
     ls #list contents of current directory
     echo hello #display "hello" to the console
     touch newfile #create a new file named "newfile" in the directory
     exit #exit the command shell; this can be used anytime
 
-<p>**Use of connectors for multi-commands**</p>
+<p><b>Use of connectors for multi-commands</b></p>
 rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 <p>where:
 <p>a command followed by <code>&&</code> only executes if the first command succeeds
