@@ -102,7 +102,30 @@ void Expression::parse(const string &s) {
 void Expression::runExpression() {
 	int i = 0;
 	while(i < static_cast<int>(v.size())) {
+		//i += v.at(i)->getConnector()->runCommand(v.at(i));
+		/*if(i == 0) {
+			i += v.at(i)->getConnector()->runCommand(v.at(i));
+		}
+		else {
+			if(v.at(i-1)->getConnector()->isAND() && !(v.at(i-1)->getConnector()->success)) {
+				++i;
+			}
+			else if(v.at(i-1)->getConnector()->isOR() && v.at(i-1)->getConnector()->success) {
+				++i;
+			}
+			else {
+				i+= v.at(i)->getConnector()->runCommand(v.at(i));
+			}
+		}*/
+		int x = i;
 		i += v.at(i)->getConnector()->runCommand(v.at(i));
+		if(i - 1 < v.size()) {
+			if(!(v.at(i-1)->getConnector()->success) && ((i-1) != x)) {
+				if(v.at(i-1)->getConnector()->isOR()) {
+					++i;
+				}
+			}
+		}
 	}
 	while(v.size() > 0) {
 		v.pop_back();

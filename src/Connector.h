@@ -16,6 +16,8 @@ class Connector {
 	bool success;
 	virtual int runCommand(CommandComponent *);
 	virtual bool isNone();
+	virtual bool isAND();
+	virtual bool isOR();
 };
 
 #endif

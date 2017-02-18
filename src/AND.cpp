@@ -4,6 +4,13 @@ bool AND::isNone()
 {
  return false; 
 }
+bool AND::isAND()
+{
+ return true;
+}
+bool AND::isOR() {
+ return false;
+}
 
 int AND::runCommand(CommandComponent * cmd)
 {

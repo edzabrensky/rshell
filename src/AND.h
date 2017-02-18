@@ -9,6 +9,8 @@ class AND : public Connector {
   public:
   int runCommand(CommandComponent * cmd);
   bool isNone();
+  bool isAND();
+  bool isOR();
 };
 
 #endif

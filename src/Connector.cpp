@@ -5,6 +5,12 @@ Connector::Connector() {
 bool Connector::isNone() {
 	return false;
 }
+bool Connector::isAND() {
+	return false;
+}
+bool Connector::isOR() {
+	return false;
+}
 int Connector::runCommand(CommandComponent *cmd) {
 	if(cmd->getCommand().compare("exit") == 0) {
 		exit(0);
