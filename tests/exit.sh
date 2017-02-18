@@ -1,3 +1,4 @@
+#!/bin/sh
 #tests exit and commands with exit
 ls -a; echo hello
 echo world; invalidbashcommand && exit #shouldn't exit since invalidbashcommand isn't a valid command

@@ -1,3 +1,4 @@
+#!/bin/sh
 #tests commands with comments
 ls -a #echo comment###ls -l
 echo hello #ls -l #ls -a #ls #ls######echo world

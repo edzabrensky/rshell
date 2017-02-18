@@ -1,3 +1,4 @@
+#!/bin/sh
 #tests single commands
 ls -a
 echo hello
