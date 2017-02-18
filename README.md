@@ -6,12 +6,12 @@
 This is a command shell written in c++. It can execute commands located in /bin/. The user must have /bin/ in their directory to properly execute commands. The exit function for this is "exit".
 
 -----------------
-<h1> Installation
+<h2> Installation
 -----------------
 
 
 --------------
-<h1>Uses of rshell
+<h2>Uses of rshell
 --------------
 Rshell behaves exactly like a command shell. 
 
@@ -31,6 +31,6 @@ ls | echo | mkdir | touch | exit
     exit
 
 ----
-<h1>Bugs
+<h2>Bugs
 ----
 
