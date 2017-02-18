@@ -11,5 +11,7 @@ echo is
 echo a
 echo test
 mkdir test2 test3 test4 test5
-touch singlecommandfile
+touch singlecommandfile.cpp
+ls
+rm singlecommandfile.cpp
 ls
