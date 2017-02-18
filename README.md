@@ -27,10 +27,10 @@ ls | echo | mkdir | touch | exit
 <p><code>exit</code> - exit the command shell
 
 <p>Some uses: </p>
-    ls
-    echo hello
-    touch newfile
-    exit
+    ls #list contents of current directory
+    echo hello #display "hello" to the console
+    touch newfile #create a new file named "newfile" in the directory
+    exit #exit the command shell; this can be used anytime
     
 ----
 <h2>Bugs
