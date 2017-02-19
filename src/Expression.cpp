@@ -102,12 +102,24 @@ void Expression::parse(const string &s) {
 void Expression::runExpression() {
 	int i = 0;
 	while(i < static_cast<int>(v.size())) {
-		//i += v.at(i)->getConnector()->runCommand(v.at(i));
-		/*if(i == 0) {
-			i += v.at(i)->getConnector()->runCommand(v.at(i));
+		int x = i;
+		i += v.at(i)->getConnector()->runCommand(v.at(i));
+		if(i < v.size() && v.at(i)->getConnector()->isOR() && (v.at(x)->getConnector()->success) && !v.at(x)->getConnector()->isAND() || i <v.size() && v.at(x)->getConnector()->isOR() && v.at(i)->getConnector()->isNone() && !v.at(i-1)->getConnector()->isAND()) {
+			int j = i;
+			while(j < v.size() && v.at(j)->getConnector()->isOR()) {
+				++j;
+				++i;
+			}
+			if(v.at(i)->getConnector()->isNone()) {
+				++i;
+			}
 		}
-		else {
-			if(v.at(i-1)->getConnector()->isAND() && !(v.at(i-1)->getConnector()->success)) {
+		
+		//if(i == 0) {
+		//	i += v.at(i)->getConnector()->runCommand(v.at(i));
+		//}
+		//else {
+			/*if(v.at(i-1)->getConnector()->isAND() && !(v.at(i-1)->getConnector()->success)) {
 				++i;
 			}
 			else if(v.at(i-1)->getConnector()->isOR() && v.at(i-1)->getConnector()->success) {
@@ -115,17 +127,49 @@ void Expression::runExpression() {
 			}
 			else {
 				i+= v.at(i)->getConnector()->runCommand(v.at(i));
-			}
-		}*/
-		int x = i;
-		i += v.at(i)->getConnector()->runCommand(v.at(i));
-		if(i - 1 < v.size()) {
-			if(!(v.at(i-1)->getConnector()->success) && ((i-1) != x)) {
+			}*/
+			
+		//}
+		//int x = i;
+		//i += v.at(i)->getConnector()->runCommand(v.at(i));
+		/*if(i - 1 < v.size()) {
+			if(!(v.at(i-1)->getConnector()->success)) {
 				if(v.at(i-1)->getConnector()->isOR()) {
-					++i;
+					int j = i;
+					bool s = true;
+					bool x;
+					while(s) {
+						if(j == 0) {
+							s = false;
+							i+= v.at(i)->getConnector()->runCommand(v.at(i));
+						}
+						else if(!(v.at(j-1)->getConnector()->isOR())) {
+							if(v.at(j-1)->getConnector()->success) {
+								++i;//i += v.at(i)->getConnector()->runCommand(v.at(i));
+								s = false;
+								;;x = true;
+							}
+							else {
+								i+= v.at(i)
+								s = false;
+							}		
+						}
+						else {
+							--j;
+						}	
+					}
+				}
+				else {
+					i+=v.at(i)->getConnector()->runCommand(v.at(i));
 				}
 			}
+			else {
+				i+=v.at(i)->getConnector()->runCommand(v.at(i));
+			}
 		}
+		else {
+			i+=v.at(i)->getConnector()->runCommand(v.at(i));
+		}*/
 	}
 	while(v.size() > 0) {
 		v.pop_back();
