@@ -104,13 +104,29 @@ void Expression::runExpression() {
 	while(i < static_cast<int>(v.size())) {
 		int x = i;
 		i += v.at(i)->getConnector()->runCommand(v.at(i));
-		if(i < v.size() && v.at(i)->getConnector()->isOR() && (v.at(x)->getConnector()->success) && !v.at(x)->getConnector()->isAND() || i <v.size() && v.at(x)->getConnector()->isOR() && v.at(i)->getConnector()->isNone() && !v.at(i-1)->getConnector()->isAND()) {
+		if(!v.at(x)->getConnector()->isOR()) {
+			if(v.at(i-1)->getConnector()->isAND() && !v.at(x)->getConnector()->success) {
+				int j = i;
+				while(j< v.size() && v.at(j)->getConnector()->isAND() || j<v.size() && v.at(j)->getConnector()->isNone() && v.at(j-1)->getConnector()->isAND()) {
+					++j;
+					if(!v.at(j)->getConnector()->isNone()) {
+						++i;
+					}
+				}
+				if(v.at(i-1)->getConnector()->isNone() && v.at(i-1)->getConnector()->isAND()) {
+					--i;
+				}
+				++i;
+			}
+		}
+		else if(i < v.size() && v.at(i)->getConnector()->isOR() && (v.at(x)->getConnector()->success) && v.at(i)->getConnector()->isOR() && !v.at(i)->getConnector()->isAND() || i <v.size() && v.at(x)->getConnector()->isOR() && v.at(i)->getConnector()->isNone() && !v.at(i-1)->getConnector()->isAND() && i-1 != x) {
+
 			int j = i;
 			while(j < v.size() && v.at(j)->getConnector()->isOR()) {
 				++j;
 				++i;
 			}
-			if(v.at(i)->getConnector()->isNone()) {
+			if(v.at(i)->getConnector()->isNone() && (v.at(i-1)->getConnector()->isAND() || v.at(i-1)->getConnector()->isOR())) {
 				++i;
 			}
 		}
