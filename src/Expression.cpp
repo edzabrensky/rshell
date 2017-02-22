@@ -109,11 +109,14 @@ void Expression::runExpression() {
 				int j = i;
 				while(j< v.size() && v.at(j)->getConnector()->isAND() || j<v.size() && v.at(j)->getConnector()->isNone() && v.at(j-1)->getConnector()->isAND()) {
 					++j;
-					if(!v.at(j)->getConnector()->isNone()) {
+					if(j < v.size() && !v.at(j)->getConnector()->isNone()) {
+						++i;
+					}
+					else {
 						++i;
 					}
 				}
-				if(v.at(i-1)->getConnector()->isNone() && v.at(i-1)->getConnector()->isAND()) {
+				if(i < v.size() && v.at(i-1)->getConnector()->isNone() && i < v.size() && v.at(i-1)->getConnector()->isAND()) {
 					--i;
 				}
 				++i;
@@ -126,7 +129,7 @@ void Expression::runExpression() {
 				++j;
 				++i;
 			}
-			if(v.at(i)->getConnector()->isNone() && (v.at(i-1)->getConnector()->isAND() || v.at(i-1)->getConnector()->isOR())) {
+			if(i < v.size() && v.at(i)->getConnector()->isNone() && (v.at(i-1)->getConnector()->isAND() || i < v.size() && v.at(i-1)->getConnector()->isOR())) {
 				++i;
 			}
 		}
