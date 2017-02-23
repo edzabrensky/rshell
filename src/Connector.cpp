@@ -58,6 +58,17 @@ int Connector::runCommand(CommandComponent *cmd) {
 				this->success = false;
 			}
 		}
+		else
+		{
+			if (S_ISDIR(buf.st_mode)) //default case, same instructions as for the -e case
+			{   
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
 		
 	  }
 		if (this->success)
