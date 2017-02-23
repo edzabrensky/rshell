@@ -7,7 +7,15 @@ Expression::Expression(const string &e) {
 		s = e.substr(0, e.find("#"));
 		//cout << s << endl;
 	}
-	parse(s);		
+	if(e.find('(') == string::npos && e.find(')') == string::npos) {
+		parse(s);
+	}
+	else if(!balancedParenthesis(s)) {
+		cout << "Parenthesis not balanced." << endl;
+	}
+	else {//balanced parenthsis
+
+	}		
 }
 
 void Expression::parse(const string &s) {
@@ -126,6 +134,7 @@ void Expression::runExpression() {
 
 			int j = i;
 			while(j < v.size() && v.at(j)->getConnector()->isOR()) {
+				v.at(j)->getConnector()->success = true;
 				++j;
 				++i;
 			}
@@ -194,6 +203,48 @@ void Expression::runExpression() {
 		v.pop_back();
 	}
 }
+
+
+
+
+bool Expression::balancedParenthesis(const string  &e) {
+	stack<char> pStack;
+	string copy = e;
+	while(copy.size() > 0) {
+		if(copy.at(0) == '(') {
+			pStack.push('(');
+		}
+		else if(copy.at(0) == ')') {
+			if(pStack.empty()) {
+				return false;
+			}
+			pStack.pop();
+		}
+		else {
+			if(copy.size() == 1) { 
+				copy == "";
+			}
+			else {
+				copy = copy.substr(1, copy.size() - 1);
+			} 
+		}	
+	}
+	if(copy.size() == 0 && pStack.size() == 0) {
+		return true;
+	}
+	return false;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
