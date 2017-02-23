@@ -20,18 +20,17 @@ int Connector::runCommand(CommandComponent *cmd) {
 	else if (cmd->getCommand().compare("test") == 0 || cmd->getCommand().compare("[") == 0)
 	{
 	struct stat buf;
-	for (unsigned i = 0; i < cmd->parameters.size(); ++i)
+	this->success = true;
+	for (unsigned i = 0; i < cmd->parameters.size() && this->success; ++i)
 	  {
 		if (cmd->parameters.at(i) == "-e")
 		{
 			if (S_ISDIR(buf.st_mode)) // returns 1 if success, -1 if error / failure
 			{			   //double check flag that determines if it exists
-				cout < "(True)" << endl;
 				this->success = true;
 			}
 			else
 			{
-				cout << "(False)" << endl;
 				this->success = false;
 			}
 		}
@@ -40,12 +39,10 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISREG(buf.st_mode))
 			{
-				cout << "(True)" << endl;
 				this->success = true;
 			}
 			else
 			{
-				cout << "(False)" << endl;
 				this->success = false;
 			}
 		}
@@ -54,18 +51,23 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISDIR(buf.st_mode))
 			{
-				cout << "(True)" << endl;
 				this->success = true;
 			}
 			else
 			{
-				cout << "(False)" << endl;
 				this->success = false;
 			}
 		}
 		
 	  }
-			
+		if (this->success)
+		{
+			cout << "(True)" << endl;
+		}
+		else
+		{
+			cout << "(False)" << endl;
+		}
 	}
 	
 	else {
