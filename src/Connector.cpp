@@ -16,6 +16,58 @@ int Connector::runCommand(CommandComponent *cmd) {
 		exit(0);
 		exit(0);
 	}
+	
+	else if (cmd->getCommand().compare("test") == 0 || cmd->getCommand().compare("[") == 0)
+	{
+	struct stat buf;
+	for (unsigned i = 0; i < cmd->parameters.size(); ++i)
+	  {
+		if (cmd->parameters.at(i) == "-e")
+		{
+			if (buf.st_mode & S_ISDIR) // returns 1 if success, -1 if error / failure
+			{			   //double check flag that determines if it exists
+				cout < "(True)" << endl;
+				this->success = true;
+			}
+			else
+			{
+				cout << "(False)" << endl;
+				this->success = false;
+			}
+		}
+		
+		if (cmd->parameters.at(i) == "-f")
+		{
+			if (buf.st_mode & S_ISREG)
+			{
+				cout << "(True)" << endl;
+				this->success = true;
+			}
+			else
+			{
+				cout << "(False)" << endl;
+				this->success = false;
+			}
+		}
+		
+		if (cmd->parameters.at(i) == "-d")
+		{
+			if (buf.st_mode & S_ISDIR)
+			{
+				cout << "(True)" << endl;
+				this->success = true;
+			}
+			else
+			{
+				cout << "(False)" << endl;
+				this->success = false;
+			}
+		}
+		
+	  }
+			
+	}
+	
 	else {
 	char * args[500] = {NULL};
 	args[0] = (char*)cmd->getCommand().c_str();
