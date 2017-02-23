@@ -24,7 +24,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 	  {
 		if (cmd->parameters.at(i) == "-e")
 		{
-			if (buf.st_mode & S_ISDIR) // returns 1 if success, -1 if error / failure
+			if (S_ISDIR(buf.st_mode)) // returns 1 if success, -1 if error / failure
 			{			   //double check flag that determines if it exists
 				cout < "(True)" << endl;
 				this->success = true;
@@ -38,7 +38,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		
 		if (cmd->parameters.at(i) == "-f")
 		{
-			if (buf.st_mode & S_ISREG)
+			if (S_ISREG(buf.st_mode))
 			{
 				cout << "(True)" << endl;
 				this->success = true;
@@ -52,7 +52,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		
 		if (cmd->parameters.at(i) == "-d")
 		{
-			if (buf.st_mode & S_ISDIR)
+			if (S_ISDIR(buf.st_mode))
 			{
 				cout << "(True)" << endl;
 				this->success = true;
