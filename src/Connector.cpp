@@ -16,6 +16,141 @@ int Connector::runCommand(CommandComponent *cmd) {
 		exit(0);
 		exit(0);
 	}
+	
+	else if (cmd->getCommand().compare("test") == 0) //path at v.at(v.size() - 1)
+	{
+	struct stat buf;
+	stat((cmd->parameters.at(cmd->parameters.size() - 1)).c_str(), &buf);
+	this->success = true;
+	for (unsigned i = 0; i < cmd->parameters.size() - 1 && this->success; ++i)
+	  {
+		if (cmd->parameters.at(i) == "-e")
+		{
+			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode)) // returns 1 if success, -1 if error / failure
+			{			   //double check flag that determines if it exists
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+		else if (cmd->parameters.at(i) == "-f")
+		{
+			if (S_ISREG(buf.st_mode))
+			{
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+		else if (cmd->parameters.at(i) == "-d")
+		{
+			if (S_ISDIR(buf.st_mode))
+			{
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+		else
+		{
+			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode))
+			{
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+	  }
+		if (this->success)
+		{
+			cout << "(True)" << endl;
+		}
+		else
+		{
+			cout << "(False)" << endl;
+		}
+	
+	}
+	
+	else if (cmd->getCommand().compare("[") == 0) //difference being that the path will be at v.at(v.size() - 2) instead of v.at(v.size() - 1)
+	{
+	struct stat buf;
+	stat((cmd->parameters.at(cmd->parameters.size() - 2)).c_str(), &buf);
+	this->success = true;
+	for (unsigned i = 0; i < cmd->parameters.size() - 2 && this->success; ++i)
+	  {
+		if (cmd->parameters.at(i) == "-e")
+		{
+			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode)) // returns 1 if success, -1 if error / failure
+			{			   //double check flag that determines if it exists
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+		else if (cmd->parameters.at(i) == "-f")
+		{
+			if (S_ISREG(buf.st_mode))
+			{
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+		else if (cmd->parameters.at(i) == "-d")
+		{
+			if (S_ISDIR(buf.st_mode))
+			{
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+		else
+		{
+			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode))
+			{
+				this->success = true;
+			}
+			else
+			{
+				this->success = false;
+			}
+		}
+		
+	  }
+		if (this->success)
+		{
+			cout << "(True)" << endl;
+		}
+		else
+		{
+			cout << "(False)" << endl;
+		}
+		
+	}
+	
 	else {
 	char * args[500] = {NULL};
 	args[0] = (char*)cmd->getCommand().c_str();
