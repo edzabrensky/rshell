@@ -14,7 +14,7 @@ class CommandComponent {
 	vector<string> parameters;
 	CommandComponent();
 	CommandComponent(string command, Connector *p);
-	Connector * getConnector();
+	virtual Connector * getConnector();
 	string getCommand();	
 	void setConnector(Connector *);
 };
