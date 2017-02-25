@@ -2,6 +2,8 @@
 //assumes the first string is the command even if it is a connector
 //e.g. if the user types "&& ls -a" it will assume && is a command and the arguments are ls and -a
 Expression::Expression(const string &e) {
+	this->setConnector(new None());
+
 	vExpression = new vector<pair<int,int> >;
 	string s = e;
 	if(s.find("#") != string::npos)  {
@@ -16,6 +18,7 @@ Expression::Expression(const string &e) {
 		cout << "Parenthesis not balanced." << endl;
 	}
 	else {//balanced parenthsis
+		this->setConnector(new None());
 		createTree(s); 	
 		cout << s << endl;
 		cout << vOfOrderedCommands.size() << endl;
@@ -104,7 +107,7 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                         else if(temp.find("&&") < temp.find("||") && temp.find("&&") < temp.find(";")) {
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new AND());
 				//temp = temp.substr(temp.find("&&") + 2, temp.size() -1);
-                                temp = temp.substr(temp.find("&&") + 2, temp.size() -1 - temp.find("&&") - 2);
+                                temp = temp.substr(temp.find("&&") + 2, temp.size() -1 - temp.find("&&") - 1);
 				//cout << temp << "123123" << endl;
                                 //vOfOrderedCommands.push_back(new Expression(temp));
                                 if(temp.size() != 0) {
@@ -133,7 +136,7 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                         else if(temp.find("||") < temp.find("&&") && temp.find("||") < temp.find(";")) {
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new OR());
 				//temp = temp.substr(temp.find("||") + 2, temp.size() -1);
-                                temp = temp.substr(temp.find("||") + 2, temp.size() -1 - temp.find("||") - 2);//FIXME:CHANGED -2 at the end to -1
+                                temp = temp.substr(temp.find("||") + 2, temp.size() -1 - temp.find("||") - 1);//FIXME:CHANGED -2 at the end to -1
                                 //vOfOrderedCommands.push_back(new Expression(temp));
                                 if(temp.size() != 0) {
                                         vOfOrderedCommands.push_back(new Expression(temp));
@@ -159,7 +162,7 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                         }
                         else if(temp.find(";") < temp.find("||") && temp.find(";") < temp.find("&&")) {
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new Semicolon());
-				temp = temp.substr(temp.find(";") + 1, temp.size() -1 - temp.find(";") - 1);
+				temp = temp.substr(temp.find(";") + 1, temp.size() -1 - temp.find(";") );
                                 //vOfOrderedCommands.push_back(new Expression(temp));
                                 if(temp.size() != 0) {
 				        if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size()  == 0) {
@@ -209,7 +212,7 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
 			}
 			else if(temp.find("&&") < temp.find("||") && temp.find("&&") < temp.find(";")) {
 				vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new AND());
-				temp = temp.substr(temp.find("&&") + 2, temp.size() -1 - temp.find("&&") - 2);
+				temp = temp.substr(temp.find("&&") + 2, temp.size() -1 - temp.find("&&") - 1);
 				//vOfOrderedCommands.push_back(new Expression(temp));
 				if(temp.size() != 0) {
 					cout << temp << "OMG" << endl;
@@ -236,7 +239,7 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
 			}
 			else if(temp.find("||") < temp.find("&&") && temp.find("||") < temp.find(";")) {
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new OR());
-				temp = temp.substr(temp.find("||") + 2, temp.size() -1 - temp.find("||") - 2);
+				temp = temp.substr(temp.find("||") + 2, temp.size() -1 - temp.find("||") - 1);
                                 //cout << temp.size() << "xD" << endl;
 				if(temp.size() > 0) {
 					vOfOrderedCommands.push_back(new Expression(temp));
@@ -262,7 +265,7 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                         }
 			else if(temp.find(";") < temp.find("||") && temp.find(";") < temp.find("&&")) {
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new Semicolon());
-				temp = temp.substr(temp.find(";") + 1, temp.size() -1 - temp.find(";")-1);
+				temp = temp.substr(temp.find(";") + 1, temp.size() -1 - temp.find(";"));
                                 //vOfOrderedCommands.push_back(new Expression(temp));
                                 if(temp.size() != 0) {
                                         vOfOrderedCommands.push_back(new Expression(temp));
@@ -418,6 +421,9 @@ void Expression::runExpression() {
 					++i;
 				}
 			}
+			/*if( i == v.size() - 1 && v.at(i)->getConnector()->success) {
+				this->getConnector()->success = true;
+			}*/
 		}
 	}
 	else {//FIXME: Maybe check that each expression does not have None Connector?
@@ -425,6 +431,12 @@ void Expression::runExpression() {
 			//cout << vOfOrderedCommands.at(i)->getCommand().size() << endl;
 			if(i == 0) {//first command
 				vOfOrderedCommands.at(i)->runExpression();
+				if((vOfOrderedCommands.at(0)->vOfOrderedCommands).size() > 0 && (vOfOrderedCommands.at(0)->vOfOrderedCommands).at((vOfOrderedCommands.at(0)->vOfOrderedCommands).size() - 1)->getConnector()->success || (vOfOrderedCommands.at(i)->v).size() > 0 && (vOfOrderedCommands.at(i)->v).at((vOfOrderedCommands.at(i)->v).size() -1)->getConnector()->success ) {
+                                        //vOfOrderedCommands.at(0)->getConnector()->success = true;
+					this->getConnector()->success = true;
+					//cout << "XDDDDDD" << endl << endl;
+                                }
+
 			}
 			//else if(vOfOrderedCommands.at(i)->getConnector() == 0) {
 				//vOfOrderedCommands.erase(vOfOrderedCommands.begin() + i);
@@ -433,23 +445,35 @@ void Expression::runExpression() {
 			//}
 			else { //need to check expression before hand and its connector
 				if(vOfOrderedCommands.at(i - 1)->getConnector() != 0 && vOfOrderedCommands.at(i - 1)->getConnector()->isAND()){//if AND expression beforehand
-					if((vOfOrderedCommands.at(i-1)->v).size() > 0 && (vOfOrderedCommands.at(i-1)->v).at((vOfOrderedCommands.at(i-1)->v).size() -1)->getConnector()->success) {
+					//cout << "hellpp" << endl;
+					if((vOfOrderedCommands.at(i-1)->v).size() > 0 && (vOfOrderedCommands.at(i-1)->v).at((vOfOrderedCommands.at(i-1)->v).size() -1)->getConnector()->success || vOfOrderedCommands.at(i-1)->getConnector()->success) {
 						vOfOrderedCommands.at(i)->runExpression();	
-						//cout << "FOUND AND" << endl;
+						cout << "FOUND AND" << endl;
+						if(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() > 0 && vOfOrderedCommands.at(i)->vOfOrderedCommands.at(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() - 1)->getConnector()->success) {
+                                                        vOfOrderedCommands.at(i)->getConnector()->success = true;
+                                                }
+
 					}
 					else {
 						//++i;
-						//cout << "ASDASDA" << i <<  endl;
+						//vOfOrderedCommands.at(i)->runExpression();
+
+						//vOfOrderedCommands.at(i)->getConnector()->success = true;
+						//cout << "entered AND branch" << i <<  endl;
 					}
 				}
 				else if(vOfOrderedCommands.at(i - 1)->getConnector() != 0 && vOfOrderedCommands.at(i -1)->getConnector()->isOR()) {
 					//cout << "entered branch" << endl;
 					if((vOfOrderedCommands.at(i-1)->v).size() > 0 && !(vOfOrderedCommands.at(i-1)->v).at((vOfOrderedCommands.at(i-1)->v).size() -1)->getConnector()->success) {
                                                 vOfOrderedCommands.at(i)->runExpression();
+						if(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() > 0 && vOfOrderedCommands.at(i)->vOfOrderedCommands.at(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() - 1)->getConnector()->success) {
+							vOfOrderedCommands.at(i)->getConnector()->success = true;
+						}	
                                         }
                                         else {
 						(vOfOrderedCommands.at(i)->v).at((vOfOrderedCommands.at(i)->v).size() - 1)->getConnector()->success = true;
                                                 //++i;
+                                                //vOfOrderedCommands.at(i)->runExpression();
 						//cout << i << "ASDASD" << endl;
                                         }
 	
@@ -539,10 +563,14 @@ bool Expression::balancedParenthesis(const string  &e) {
                         if(pStack.empty()) {
                                 return false;
                         }
-			for(unsigned j = 0; j < vExpression->size(); ++j) {
+			unsigned j = 0;
+			while(  j < vExpression->size()) {
 				if(vExpression->at(j).first > pStack.top() && vExpression->at(j).second < i) {
 					vExpression->erase(vExpression->begin() +j);
 					j = 0;
+				}
+				else {
+					++j;
 				}
 			}
 			vExpression->push_back(make_pair(pStack.top(),i));
