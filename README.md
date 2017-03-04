@@ -10,7 +10,7 @@ This is a command shell written in c++. It can execute commands located in /bin/
 -----------------
 1. <code>git clone https://github.com/edzabrensky/rshell.git</code>
 2. <code>cd rshell</code>
-3. <code>git checkout hw2</code>
+3. <code>git checkout hw3</code>
 4. <code>make</code>
 5. <code>bin/rshell</code>
 
@@ -55,6 +55,8 @@ rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 <code>exit.sh</code>
 <code>multi_command.sh</code>
 <code>single_command.sh</code>
+<code>test_test.sh</code>
+<code>precedence_test.sh</code>
 
 ----
 <h2>Bugs
@@ -62,4 +64,5 @@ rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 * After running tests, there are occasions where <code>exit</code> has to be typed twice to successfully end the program
 * Invalid commands occasionally have the wrong error message associated with them; in particular, the error message's source will be from the terminal instead of from the program
 * When testing bash files, the output lacks a preceding newline so the output ends up being on the same line where it is invoked. However, the output is correct.
-* We assume that the connector on depends on the command before it.
+* Inputting only a '[' on the command line causes a vector out-of-range program termination.
+* Using incorrect syntax for both <code>test</code> and its symbolic form <code> [ ] </code> causes errors. e.g. <code> [ test -e src/AND.cpp ] </code> when it should be either <code>test</code> or the symbolic form <code>[ ]</code> but not both will cause two outputs. 
