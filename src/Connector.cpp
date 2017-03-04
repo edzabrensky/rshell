@@ -27,7 +27,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (stat(cmd->parameters.at(cmd->parameters.size() - 1).c_str(), &buf) == 0) //checks if something exists
 			{			   //double check flag that determines if it exists
-			cout << "it's either a folder or file" << endl;
+			//cout << "it's either a folder or file" << endl;
 				this->success = true;
 			}
 			else
@@ -41,7 +41,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISREG(buf.st_mode))
 			{
-				cout << "it's a file" << endl;
+				//cout << "it's a file" << endl;
 				this->success = true;
 			}
 			else
@@ -55,7 +55,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISDIR(buf.st_mode))
 			{
-				cout << "it's a folder" << endl;
+				//cout << "it's a folder" << endl;
 				this->success = true;
 			}
 			else
@@ -67,7 +67,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		
 		else
 		{
-
+			//do nothing
 		}
 		
 	  }
@@ -92,7 +92,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (stat(cmd->parameters.at(cmd->parameters.size() - 1).c_str(), &buf) == 0)
 			{			   //double check flag that determines if it exists
-			cout << "it's a folder or file" << endl;
+			//cout << "it's a folder or file" << endl;
 				this->success = true;
 			}
 			else
@@ -106,7 +106,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISREG(buf.st_mode))
 			{
-				cout << "it's a file" << endl;
+				//cout << "it's a file" << endl;
 				this->success = true;
 			}
 			else
@@ -120,7 +120,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISDIR(buf.st_mode))
 			{
-				cout << "it's a folder" << endl;
+				//cout << "it's a folder" << endl;
 				this->success = true;
 			}
 			else
@@ -132,8 +132,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		
 		else
 		{
-
-		
+		//do nothing
 		}
 		if (this->success)
 		{
