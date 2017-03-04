@@ -21,18 +21,19 @@ int Connector::runCommand(CommandComponent *cmd) {
 	{
 	struct stat buf;
 	stat((cmd->parameters.at(cmd->parameters.size() - 1)).c_str(), &buf);
-	this->success = true;
-	for (unsigned i = 0; i < cmd->parameters.size() - 1 && this->success; ++i)
+	for (unsigned i = 0; i < cmd->parameters.size() - 1; ++i)
 	  {
 		if (cmd->parameters.at(i) == "-e")
 		{
-			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode)) // returns 1 if success, -1 if error / failure
+			if (stat(cmd->parameters.at(cmd->parameters.size() - 1).c_str(), &buf) == 0) //checks if something exists
 			{			   //double check flag that determines if it exists
+			cout << "it's either a folder or file" << endl;
 				this->success = true;
 			}
 			else
 			{
 				this->success = false;
+				break;
 			}
 		}
 		
@@ -40,11 +41,13 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISREG(buf.st_mode))
 			{
+				cout << "it's a file" << endl;
 				this->success = true;
 			}
 			else
 			{
 				this->success = false;
+				break;
 			}
 		}
 		
@@ -52,24 +55,19 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISDIR(buf.st_mode))
 			{
+				cout << "it's a folder" << endl;
 				this->success = true;
 			}
 			else
 			{
 				this->success = false;
+				break;
 			}
 		}
 		
 		else
 		{
-			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode))
-			{
-				this->success = true;
-			}
-			else
-			{
-				this->success = false;
-			}
+
 		}
 		
 	  }
@@ -88,18 +86,19 @@ int Connector::runCommand(CommandComponent *cmd) {
 	{
 	struct stat buf;
 	stat((cmd->parameters.at(cmd->parameters.size() - 2)).c_str(), &buf);
-	this->success = true;
-	for (unsigned i = 0; i < cmd->parameters.size() - 2 && this->success; ++i)
+	for (unsigned i = 0; i < cmd->parameters.size() - 2; ++i)
 	  {
 		if (cmd->parameters.at(i) == "-e")
 		{
-			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode)) // returns 1 if success, -1 if error / failure
+			if (stat(cmd->parameters.at(cmd->parameters.size() - 1).c_str(), &buf) == 0)
 			{			   //double check flag that determines if it exists
+			cout << "it's a folder or file" << endl;
 				this->success = true;
 			}
 			else
 			{
 				this->success = false;
+				break;
 			}
 		}
 		
@@ -107,11 +106,13 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISREG(buf.st_mode))
 			{
+				cout << "it's a file" << endl;
 				this->success = true;
 			}
 			else
 			{
 				this->success = false;
+				break;
 			}
 		}
 		
@@ -119,27 +120,21 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISDIR(buf.st_mode))
 			{
+				cout << "it's a folder" << endl;
 				this->success = true;
 			}
 			else
 			{
 				this->success = false;
+				break;
 			}
 		}
 		
 		else
 		{
-			if (S_ISDIR(buf.st_mode) || S_ISREG(buf.st_mode))
-			{
-				this->success = true;
-			}
-			else
-			{
-				this->success = false;
-			}
-		}
+
 		
-	  }
+		}
 		if (this->success)
 		{
 			cout << "(True)" << endl;
@@ -149,6 +144,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 			cout << "(False)" << endl;
 		}
 		
+	}
 	}
 	
 	else {
