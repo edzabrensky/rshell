@@ -28,14 +28,15 @@ Example:
 <p><code>touch</code> - create a file in the current directory
 <p><code>exit</code> - exit the command shell
 <p><code>test</code> - tests for the existence of something and whether or not it is a folder or directory
-Syntax for <code>test</code> : <code>test -e /test/file/path</code>. Available flags listed [HERE](http://wiki.bash-hackers.org/commands/classictest)
+<p>Syntax for <code>test</code> : <code>test -e /test/file/path</code>. 
+<p>Available flags listed [here](http://wiki.bash-hackers.org/commands/classictest)
 
 <p><b>General single command uses</b></p>
     ls #list contents of current directory
     echo hello #display "hello" to the console
     touch newfile #create a new file named "newfile" in the directory
     exit #exit the command shell; this can be used anytime
-    test -e src/AND.cpp #tests if there exists something called <code>AND.cpp</code> in directory <code>src</code>
+    test -e src/AND.cpp #tests if there exists something called AND.cpp in directory src
     
 <p><b>Use of connectors for multi-commands</b></p>
 rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
