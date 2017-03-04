@@ -1,1 +1,16 @@
+#test with both precedence & test command
 
+echo hello && ls
+(echo A && echo B) || (echo C && echo D)
+(test -e src/AND.cpp && test -d src/Connector.cpp) && echo hello
+echo 123xD
+(touch test || rm test) && exit);
+ls;
+rm test;
+ls;
+(echo hello world && echo hi) || exit
+([ -d src/Connector.cpp ] || echo hello) && exit
+echo hi
+echo hiagain
+echo exit
+exit
