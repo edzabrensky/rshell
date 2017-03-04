@@ -22,16 +22,16 @@ Expression::Expression(const string &e) {
 		createTree(s); 	
 		cout << s << endl;
 		cout << vOfOrderedCommands.size() << endl;
-		for(unsigned i = 0; i <vOfOrderedCommands.size(); ++i) {
+		/*for(unsigned i = 0; i <vOfOrderedCommands.size(); ++i) {
 			//for(unsigned j = 0; j < (vOfOrderedCommands.at(i)->v).size(); ++j) {
 				//cout << (vOfOrderedCommands.at(i)->v).at(0)->getCommand() << endl;
 			//}
 			cout << vOfOrderedCommands.at(i)->getConnector() << endl;
-			/*if(vOfOrderedCommands.at(i)->getConnector() == 0) {
+			if(vOfOrderedCommands.at(i)->getConnector() == 0) {
 				vOfOrderedCommands.erase(vOfOrderedCommands.begin() + i);
 				i =0;
-			}*/
-		}
+			}
+		}*/
 	
 	}		
 }
@@ -84,10 +84,10 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
 			//vOfOrderedCommands.push_back(new Expression(s.substr(vExpression->at(i).second + 1, s.size() - 1 - vExpression->at(i).second - 1)));
 			temp = s.substr(vExpression->at(i).second + 1, s.size()-1 - vExpression->at(i).second );
 			cout << temp << endl;
-                        if(temp.find("&&") == string::npos && temp.find("||") == string::npos && temp.find(";") == string::npos) {//TODO:NEED to check if there is something before the connector
-                                vOfOrderedCommands.push_back(new Expression(temp));
+                        if(temp.find("&&") == string::npos && temp.find("||") == string::npos && temp.find(";") == string::npos) {
+                                vOfOrderedCommands.push_back(new Expression(temp)); 
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new None());
-                                if((vOfOrderedCommands.at(v.size()-1)->v).size() == 0) {//no Connector so there is no connector before it
+                                if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() == 0) {//no Connector so there is no connector before it
                                 	vOfOrderedCommands.pop_back();
                         	}//need to check if its AND or OR or semicolon
                         	else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isAND()) {
@@ -214,13 +214,14 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
 				vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new AND());
 				temp = temp.substr(temp.find("&&") + 2, temp.size() -1 - temp.find("&&") - 1);
 				//vOfOrderedCommands.push_back(new Expression(temp));
-				if(temp.size() != 0) {
+				if(temp.size() > 0) {
 					cout << temp << "OMG" << endl;
                                         vOfOrderedCommands.push_back(new Expression(temp));
+					int k = vOfOrderedCommands.size()-1;
                                         if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size()  == 0) {
                                                 vOfOrderedCommands.pop_back();
                                         }
-                                        else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isAND()) {
+                                        /*else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isAND()) {
                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new AND());
                                         }
                                         else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isOR()) {
@@ -231,8 +232,39 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                                         }
                                         else {
                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new Semicolon());
-                                        }
-
+                                        }*/
+					//int k = vOfOrderedCommands.size()-1; 
+					else {
+						string tempS;
+						while((vOfOrderedCommands.at(k)->v).size()  > 0) {
+							//cout << (vOfOrderedCommands.at(k)->v).size()  << endl;
+							tempS = (vOfOrderedCommands.at(k)->v).at(0)->getCommand();
+							for(unsigned p = 0; p < ((vOfOrderedCommands.at(k)->v).at(0)->parameters).size(); ++p) {
+								//if(((vOfOrderedCommands.at(k)->v).at(0)->parameters).size() > 0) {
+								tempS = tempS + ' ';
+								tempS = tempS + ((vOfOrderedCommands.at(k)->v).at(0)->parameters).at(p);
+								//} 
+							}
+							//vOfOrderedCommands.push_back(new Expression((vOfOrderedCommands.at(k)->v).at(0)->getCommand()));
+							vOfOrderedCommands.push_back(new Expression(tempS));
+							if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isAND()) {
+								 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new AND());
+							}
+							else if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isOR()) {
+								vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new OR());	
+							}
+							else if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isNone()) {
+								vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new None());
+							}
+							else {
+								vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new Semicolon());	
+							}
+							(vOfOrderedCommands.at(k)->v).erase((vOfOrderedCommands.at(k)->v).begin());
+							//vOfOrdered
+							//make new expressions starting from the first and get their connectors and assign the connectors to the expression
+						}
+						vOfOrderedCommands.erase(vOfOrderedCommands.begin() + k);
+					}
                                 }
                                 //vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new AND());
 
@@ -241,12 +273,14 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new OR());
 				temp = temp.substr(temp.find("||") + 2, temp.size() -1 - temp.find("||") - 1);
                                 //cout << temp.size() << "xD" << endl;
+                                //cout << "made it" << endl;
 				if(temp.size() > 0) {
 					vOfOrderedCommands.push_back(new Expression(temp));
+					int k = vOfOrderedCommands.size()-1;
                                         if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size()  == 0) {
                                                 vOfOrderedCommands.pop_back();
                                         }
-                                        else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isAND()) {
+                                        /*else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isAND()) {
                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new AND());
                                         }
                                         else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isOR()) {
@@ -257,8 +291,33 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                                         }
                                         else {
                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new Semicolon());
-                                        }
-
+                                        }*/
+					else {
+					string tempS;
+                                                while((vOfOrderedCommands.at(k)->v).size()  > 0) {
+                                                        tempS = (vOfOrderedCommands.at(k)->v).at(0)->getCommand();
+                                                        for(unsigned i = 0; i < ((vOfOrderedCommands.at(k)->v).at(0)->parameters).size(); ++i) {
+                                                                tempS = tempS + ' ';
+                                                                tempS = tempS + ((vOfOrderedCommands.at(k)->v).at(0)->parameters).at(i);
+                                                        }
+                                                        vOfOrderedCommands.push_back(new Expression(tempS));
+                                                        if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isAND()) {
+                                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new AND());
+                                                        }
+                                                        else if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isOR()) {
+                                                                vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new OR());
+                                                        }
+                                                        else if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isNone()) {
+                                                                vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new None());
+                                                        }
+                                                        else {
+                                                                vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new Semicolon());
+                                                        }
+                                                        (vOfOrderedCommands.at(k)->v).erase((vOfOrderedCommands.at(k)->v).begin());
+						
+                                                }
+						vOfOrderedCommands.erase(vOfOrderedCommands.begin() + k);
+					}
 				}
                                 //vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new OR());
 
@@ -269,10 +328,11 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                                 //vOfOrderedCommands.push_back(new Expression(temp));
                                 if(temp.size() != 0) {
                                         vOfOrderedCommands.push_back(new Expression(temp));
+					int k = vOfOrderedCommands.size()-1;
                                         if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size()  == 0) {
                                                 vOfOrderedCommands.pop_back();
                                         }
-                                        else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isAND()) {
+                                        /*else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isAND()) {
                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new AND());
                                         }
                                         else if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).at((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size() - 1)->getConnector()->isOR()) {
@@ -283,8 +343,32 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
                                         }
                                         else {
                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new Semicolon());
-                                        }
-
+                                        }*/
+					else {
+					string tempS;
+                                                while((vOfOrderedCommands.at(k)->v).size() > 0) {
+                                                        tempS = (vOfOrderedCommands.at(k)->v).at(0)->getCommand();
+                                                        for(unsigned i = 0; i < ((vOfOrderedCommands.at(k)->v).at(0)->parameters).size(); ++i) {
+                                                                tempS = tempS + ' ';
+                                                                tempS = tempS + ((vOfOrderedCommands.at(k)->v).at(0)->parameters).at(i);
+                                                        }
+                                                        vOfOrderedCommands.push_back(new Expression(tempS));
+                                                        if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isAND()) {
+                                                                 vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new AND());
+                                                        }
+                                                        else if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isOR()) {
+                                                                vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new OR());
+                                                        }
+                                                        else if((vOfOrderedCommands.at(k)->v).at(0)->getConnector()->isNone()) {
+                                                                vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new None());
+                                                        }
+                                                        else {
+                                                                vOfOrderedCommands.at(vOfOrderedCommands.size() -1)->setConnector(new Semicolon());
+                                                        }
+                                                        (vOfOrderedCommands.at(k)->v).erase((vOfOrderedCommands.at(k)->v).begin());
+                                                }
+						vOfOrderedCommands.erase(vOfOrderedCommands.begin() + k);
+					}
                                 }
                                 //vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new Semicolon());
 
@@ -436,6 +520,10 @@ void Expression::runExpression() {
 					this->getConnector()->success = true;
 					//cout << "XDDDDDD" << endl << endl;
                                 }
+				/*if(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() >0) {
+					vOfOrderedCommands.at(i)->getConnector()->success = vOfOrderedCommands.at(i)->vOfOrderedCommands.at((vOfOrderedCommands.at(i)->vOfOrderedCommands).size() -1 )->getConnector()->success;
+				}*/
+			
 
 			}
 			//else if(vOfOrderedCommands.at(i)->getConnector() == 0) {
@@ -464,7 +552,7 @@ void Expression::runExpression() {
 				}
 				else if(vOfOrderedCommands.at(i - 1)->getConnector() != 0 && vOfOrderedCommands.at(i -1)->getConnector()->isOR()) {
 					//cout << "entered branch" << endl;
-					if((vOfOrderedCommands.at(i-1)->v).size() > 0 && !(vOfOrderedCommands.at(i-1)->v).at((vOfOrderedCommands.at(i-1)->v).size() -1)->getConnector()->success) {
+					if((vOfOrderedCommands.at(i-1)->v).size() > 0 && !((vOfOrderedCommands.at(i-1)->v).at((vOfOrderedCommands.at(i-1)->v).size() -1)->getConnector()->success)) {
                                                 vOfOrderedCommands.at(i)->runExpression();
 						if(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() > 0 && vOfOrderedCommands.at(i)->vOfOrderedCommands.at(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() - 1)->getConnector()->success) {
 							vOfOrderedCommands.at(i)->getConnector()->success = true;
@@ -472,6 +560,7 @@ void Expression::runExpression() {
                                         }
                                         else {
 						(vOfOrderedCommands.at(i)->v).at((vOfOrderedCommands.at(i)->v).size() - 1)->getConnector()->success = true;
+						vOfOrderedCommands.at(i)->getConnector()->success =true;
                                                 //++i;
                                                 //vOfOrderedCommands.at(i)->runExpression();
 						//cout << i << "ASDASD" << endl;
@@ -480,6 +569,10 @@ void Expression::runExpression() {
 				}
 				else if(vOfOrderedCommands.at(i - 1)->getConnector() != 0 && vOfOrderedCommands.at(i - 1)->getConnector()->isNone()) {
 					vOfOrderedCommands.at(i)->runExpression();
+					//vOfOrderedCommands.at(i)->getConnector()->success =false;
+					/*if((vOfOrderedCommands.at(i)->v).size() > 0) {
+						vOfOrderedCommands.at(i)->getConnector()->success = (vOfOrderedCommands.at(i)->v).at((vOfOrderedCommands.at(i)->v).size() -1)->getConnector()->success; 
+					}*/
 					//cout << "none" << i << endl;	
 					//FIXME: need to do soemthing if they dont have a connector in between expressions.
 				}
@@ -487,7 +580,13 @@ void Expression::runExpression() {
 					vOfOrderedCommands.at(i)->runExpression();	
 				}
 			}
+			/*if(vOfOrderedCommands.size() > 0) {
+				this->getConnector()->success = vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->getConnector()->success;
+			}*/
 		}
+		/*if(vOfOrderedCommands.size() > 0 && vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->getConnector()->success) {
+			this->getConnector()->success = true;
+		}*/
 	}
 		//if(i == 0) {
 		//	i += v.at(i)->getConnector()->runCommand(v.at(i));
