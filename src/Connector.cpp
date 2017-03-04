@@ -17,11 +17,11 @@ int Connector::runCommand(CommandComponent *cmd) {
 		exit(0);
 	}
 	
-	else if (cmd->getCommand().compare("test") == 0) //path at v.at(v.size() - 1)
+		else if (cmd->getCommand().compare("test") == 0) //path at v.at(v.size() - 1)
 	{
 	struct stat buf;
 	stat((cmd->parameters.at(cmd->parameters.size() - 1)).c_str(), &buf);
-	for (unsigned i = 0; i < cmd->parameters.size() - 1; ++i)
+	for (unsigned i = 0; i < cmd->parameters.size() - 1; ++i && success)
 	  {
 		if (cmd->parameters.at(i) == "-e")
 		{
@@ -33,7 +33,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 			else
 			{
 				this->success = false;
-				break;
+				//break;
 			}
 		}
 		
@@ -47,7 +47,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 			else
 			{
 				this->success = false;
-				break;
+				//break;
 			}
 		}
 		
@@ -61,13 +61,13 @@ int Connector::runCommand(CommandComponent *cmd) {
 			else
 			{
 				this->success = false;
-				break;
+				//break;
 			}
 		}
 		
 		else
 		{
-			//do nothing
+
 		}
 		
 	  }
@@ -86,7 +86,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 	{
 	struct stat buf;
 	stat((cmd->parameters.at(cmd->parameters.size() - 2)).c_str(), &buf);
-	for (unsigned i = 0; i < cmd->parameters.size() - 2; ++i)
+	for (unsigned i = 0; i < cmd->parameters.size() - 2; ++i && success)
 	  {
 		if (cmd->parameters.at(i) == "-e")
 		{
@@ -98,7 +98,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 			else
 			{
 				this->success = false;
-				break;
+				//break;
 			}
 		}
 		
@@ -112,7 +112,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 			else
 			{
 				this->success = false;
-				break;
+				//break;
 			}
 		}
 		
@@ -126,13 +126,14 @@ int Connector::runCommand(CommandComponent *cmd) {
 			else
 			{
 				this->success = false;
-				break;
+				//break;
 			}
 		}
 		
 		else
 		{
-		//do nothing
+
+		
 		}
 		if (this->success)
 		{
