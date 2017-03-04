@@ -1,0 +1,12 @@
+((echo A && echo B) || (echo C && echo D)) || (echo XD)
+((echo A && echod) || (echo C && echod)) || (echo XD)
+((echo A && echo B) || (echo C && echo D)) && (echo XD)
+((echo A && echo B) || (echo C && echo D)) && (echo XD) && ((echo A && echo B) || (echo C && echo D)) && (echo XD)
+((echo A && echo B) || (echo C && echo D)) && echo XD
+(echo A && echo B) || (echo C && echo D)
+((echo A && echo B) || (echo C && echo D))
+(echo A && echo D) && echo C
+(echo A && echo B) || echo C && echo E || (echo P && echo D)
+(echo A && echo C) && echo XD || (echo XD)
+(echo A && echo B) && (echo A && echo C) || (echo X && echo D)
+exit

@@ -14,14 +14,14 @@ Expression::Expression(const string &e) {
 		parse(s);
 	}
 	else if(!balancedParenthesis(s)) {
-		cout << s << endl;
+		//cout << s << endl;
 		cout << "Parenthesis not balanced." << endl;
 	}
 	else {//balanced parenthsis
 		this->setConnector(new None());
 		createTree(s); 	
-		cout << s << endl;
-		cout << vOfOrderedCommands.size() << endl;
+		//cout << s << endl;
+		//cout << vOfOrderedCommands.size() << endl;
 		/*for(unsigned i = 0; i <vOfOrderedCommands.size(); ++i) {
 			//for(unsigned j = 0; j < (vOfOrderedCommands.at(i)->v).size(); ++j) {
 				//cout << (vOfOrderedCommands.at(i)->v).at(0)->getCommand() << endl;
@@ -55,9 +55,9 @@ int Expression::findLastConnector(const string &s) {//if x = 0 then it is None i
 void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTOR BEFORE EACH EXPRESSION BEFORE EXECUTING
 	string temp;
 	for(unsigned i = 0; i < vExpression->size(); ++i) {//there can be a command before and after each vExpression element
-		cout << vExpression->at(i).first << " " << vExpression->at(i).second << endl;
+		//cout << vExpression->at(i).first << " " << vExpression->at(i).second << endl;
 		if(vExpression->at(i).first - 1 > 0 && i == 0) {
-			cout << s.substr(0,vExpression->at(i).first - 1) << "XD" << endl;
+			//cout << s.substr(0,vExpression->at(i).first - 1) << "XD" << endl;
 			vOfOrderedCommands.push_back(new Expression(s.substr(0,vExpression->at(i).first - 1)));
 			if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size()  == 0) {
 				vOfOrderedCommands.pop_back();	
@@ -79,11 +79,11 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
 		}
 		vOfOrderedCommands.push_back(new Expression(s.substr(vExpression->at(i).first + 1, vExpression->at(i).second -1 - vExpression->at(i).first)));
 		//vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new None());
-		cout << s.substr(vExpression->at(i).first + 1, vExpression->at(i).second -1 - vExpression->at(i).first) << endl;
+		//cout << s.substr(vExpression->at(i).first + 1, vExpression->at(i).second -1 - vExpression->at(i).first) << endl;
 		if(i == vExpression->size() -1 && (s.size() - 1 > vExpression->at(i).second)) {//last expression 
 			//vOfOrderedCommands.push_back(new Expression(s.substr(vExpression->at(i).second + 1, s.size() - 1 - vExpression->at(i).second - 1)));
 			temp = s.substr(vExpression->at(i).second + 1, s.size()-1 - vExpression->at(i).second );
-			cout << temp << endl;
+			//cout << temp << endl;
                         if(temp.find("&&") == string::npos && temp.find("||") == string::npos && temp.find(";") == string::npos) {
                                 vOfOrderedCommands.push_back(new Expression(temp)); 
                                 vOfOrderedCommands.at(vOfOrderedCommands.size() - 1)->setConnector(new None());
@@ -215,7 +215,7 @@ void Expression::createTree(const string &s) {//TODO: NEED TO CHECK FOR CONNECTO
 				temp = temp.substr(temp.find("&&") + 2, temp.size() -1 - temp.find("&&") - 1);
 				//vOfOrderedCommands.push_back(new Expression(temp));
 				if(temp.size() > 0) {
-					cout << temp << "OMG" << endl;
+					//cout << temp << "OMG" << endl;
                                         vOfOrderedCommands.push_back(new Expression(temp));
 					int k = vOfOrderedCommands.size()-1;
                                         if((vOfOrderedCommands.at(vOfOrderedCommands.size()-1)->v).size()  == 0) {
@@ -536,7 +536,7 @@ void Expression::runExpression() {
 					//cout << "hellpp" << endl;
 					if((vOfOrderedCommands.at(i-1)->v).size() > 0 && (vOfOrderedCommands.at(i-1)->v).at((vOfOrderedCommands.at(i-1)->v).size() -1)->getConnector()->success || vOfOrderedCommands.at(i-1)->getConnector()->success) {
 						vOfOrderedCommands.at(i)->runExpression();	
-						cout << "FOUND AND" << endl;
+						//cout << "FOUND AND" << endl;
 						if(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() > 0 && vOfOrderedCommands.at(i)->vOfOrderedCommands.at(vOfOrderedCommands.at(i)->vOfOrderedCommands.size() - 1)->getConnector()->success) {
                                                         vOfOrderedCommands.at(i)->getConnector()->success = true;
                                                 }

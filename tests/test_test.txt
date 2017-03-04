@@ -21,3 +21,4 @@ test -d emptydir && echo "it exists and it's a directory"
 test -e src/ASDzxcvvq.cpp && echo "path exists"
 test -f src/ASDzxcvvq.cpp && echo "it exists and it's a regular file"
 test -d src/ASDzxcvvq.cpp && echo "it exists and it's a directory"
+exit

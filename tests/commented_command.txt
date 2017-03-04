@@ -8,3 +8,5 @@ mkdir fakedir #echo hello && echo world || ls && cd
 test -e fakedir # # # # exit # cd ls # echo "test"
 test -f fakedir #this isn't a file
 test -d fakedir #but it is a directory || echo hello && ls
+rm -r fakedir
+exit

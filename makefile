@@ -9,10 +9,10 @@ makedir :
 	mkdir bin
 
 compileTest1 :
-	chmod 711 tests/single_command.sh
+	chmod 711 tests/test_test.sh
 
 compileTest2 :
-	chmod 711 tests/multi_command.sh
+	chmod 711 tests/precedence_test.sh
 
 compileTest3 :
 	chmod 711 tests/commented_command.sh
