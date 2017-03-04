@@ -17,7 +17,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		exit(0);
 	}
 	
-		else if (cmd->getCommand().compare("test") == 0) //path at v.at(v.size() - 1)
+	else if (cmd->getCommand().compare("test") == 0) //path at v.at(v.size() - 1)
 	{
 	struct stat buf;
 	stat((cmd->parameters.at(cmd->parameters.size() - 1)).c_str(), &buf);
@@ -26,7 +26,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		if (cmd->parameters.at(i) == "-e")
 		{
 			if (stat(cmd->parameters.at(cmd->parameters.size() - 1).c_str(), &buf) == 0) //checks if something exists
-			{			   //double check flag that determines if it exists
+			{
 			//cout << "it's either a folder or file" << endl;
 				this->success = true;
 			}
@@ -91,7 +91,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		if (cmd->parameters.at(i) == "-e")
 		{
 			if (stat(cmd->parameters.at(cmd->parameters.size() - 2).c_str(), &buf) == 0)
-			{			   //double check flag that determines if it exists
+			{
 			//cout << "it's a folder or file" << endl;
 				this->success = true;
 			}
@@ -120,7 +120,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		{
 			if (S_ISDIR(buf.st_mode))
 			{
-				//cout << "it's a folder" << endl;
+				//cout << "it's a folder" << endl; 
 				this->success = true;
 			}
 			else
@@ -144,7 +144,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 			cout << "(False)" << endl;
 		}
 		
-	}
+	  }
 	}
 	
 	else {
