@@ -1,0 +1,10 @@
+test -e src/Connector.cpp #echo "hello world!"
+test -f src/Connector.cpp #exit
+test -d src/Connector.cpp #ls
+[ -e src/Connector.cpp ] #echo "xD123123"
+[ -f src/Connector.cpp ] #echo "this is a comment"
+[ -d src/Connector.cpp ] #cd
+mkdir fakedir #echo hello && echo world || ls && cd
+test -e fakedir # # # # exit # cd ls # echo "test"
+test -f fakedir #this isn't a file
+test -d fakedir #but it is a directory || echo hello && ls
