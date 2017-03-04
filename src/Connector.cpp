@@ -17,7 +17,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 		exit(0);
 	}
 	
-	else if (cmd->getCommand().compare("test") == 0) //path at v.at(v.size() - 1)
+	else if (cmd->getCommand().compare("test") == 0 && cmd->parameters.size() >= 1) //path at v.at(v.size() - 1)
 	{
 	struct stat buf;
 	stat((cmd->parameters.at(cmd->parameters.size() - 1)).c_str(), &buf);
@@ -82,7 +82,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 	
 	}
 	
-	else if (cmd->getCommand().compare("[") == 0) //difference being that the path will be at v.at(v.size() - 2) instead of v.at(v.size() - 1)
+	else if (cmd->getCommand().compare("[") == 0 && cmd->parameters.size() >= 2) //difference being that the path will be at v.at(v.size() - 2) instead of v.at(v.size() - 1)
 	{
 	struct stat buf;
 	stat((cmd->parameters.at(cmd->parameters.size() - 2)).c_str(), &buf);
