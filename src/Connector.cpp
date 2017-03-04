@@ -10,7 +10,7 @@ bool Connector::isAND() {
 }
 bool Connector::isOR() {
 	return false;
-}
+}//ss
 int Connector::runCommand(CommandComponent *cmd) {
 	if(cmd->getCommand().compare("exit") == 0) {
 		exit(0);
