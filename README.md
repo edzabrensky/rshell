@@ -64,5 +64,6 @@ rShell allows the use of connectors, namely: <code>&&, ||, ;</code>
 * After running tests, there are occasions where <code>exit</code> has to be typed twice to successfully end the program
 * Invalid commands occasionally have the wrong error message associated with them; in particular, the error message's source will be from the terminal instead of from the program
 * When testing bash files, the output lacks a preceding newline so the output ends up being on the same line where it is invoked. However, the output is correct.
-* Inputting only a '[' on the command line causes a vector out-of-range program termination.
 * Using incorrect syntax for both <code>test</code> and its symbolic form <code> [ ] </code> causes errors. e.g. <code> [ test -e src/AND.cpp ] </code>, when it should be either <code>test</code> or the symbolic form <code>[ ]</code> but not both, will cause two outputs. 
+* Nested parenthesis that result in false followed by an 'or' does not work correctly, e.g. 
+<code>((echo A && echod) || (echo C && echod)) || echo XD</code>
