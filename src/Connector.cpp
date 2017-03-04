@@ -90,7 +90,7 @@ int Connector::runCommand(CommandComponent *cmd) {
 	  {
 		if (cmd->parameters.at(i) == "-e")
 		{
-			if (stat(cmd->parameters.at(cmd->parameters.size() - 1).c_str(), &buf) == 0)
+			if (stat(cmd->parameters.at(cmd->parameters.size() - 2).c_str(), &buf) == 0)
 			{			   //double check flag that determines if it exists
 			//cout << "it's a folder or file" << endl;
 				this->success = true;
