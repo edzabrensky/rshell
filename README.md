@@ -29,7 +29,7 @@ Example:
 <p><code>exit</code> - exit the command shell
 <p><code>test</code> - tests for the existence of something and whether or not it is a folder or directory
 <p>Syntax for <code>test</code> : <code>test -flag /test/file/path</code>. 
-<p>Available flags listed at: (http://wiki.bash-hackers.org/commands/classictest)
+<p>Available flags listed at: http://wiki.bash-hackers.org/commands/classictest
 
 <p><b>General single command uses</b></p>
     ls #list contents of current directory
