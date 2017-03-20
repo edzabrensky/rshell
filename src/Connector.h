@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <string>
 #include <cstring>
+#include <fcntl.h>
 using namespace std;
 
 class CommandComponent;
