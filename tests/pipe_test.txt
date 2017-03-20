@@ -1,2 +1,16 @@
-cat < exit.txt
-A-Z > newOutputFile2
+cat < tests/exit.txt
+cat > helloworld.txt
+cat < helloworld.txt
+rm helloworld.txt
+echo > helloworld.txt this is a test case that should write this to helloworld.txt
+cat < helloworld.txt
+rm helloworld.txt
+ls > helloworld.txt
+cat < helloworld.txt
+rm helloworld.txt
+echo helloWorld > helloworld.txt
+cat < helloWorld.txt
+rm helloworld.txt
+echo > helloworld.txt i am writing this to helloworld.txt
+cat < helloworld.txt
+rm helloworld.txt
